@@ -1,0 +1,18 @@
+<!-- ------------------------------
+rmarkdown::render("input.Rmd")
+------------------------------ -->
+---
+title: "IQR Outliers"
+output: html_document
+---
+
+## Detecting Outliers
+
+This is Rob Hyndman's method: Remove non-stationarity in the time series, then find outliers in the residuals. The test for residual outliers is points greater than 1.5 Inter-Quartile Range (IQR) above or below the upper or lower quartiles. This implementation allows for adjusting the IQR multiplier.
+
+
+
+
+## Interpreting Outliers
+*Red Points* - data points more than 1.5 IQR above or below the upper or lower quartiles are identified as outliers and plotted in red. W. Huber suggests that in some cases 2.5 or even 3 times the IQR make a better threshold (e.g. in control chart methods)
+

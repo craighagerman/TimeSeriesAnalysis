@@ -1,0 +1,21 @@
+<!-- ------------------------------
+rmarkdown::render("input.Rmd")
+------------------------------ -->
+---
+title: "Bollinger"
+output: html_document
+---
+
+## Bollinger Bands
+
+Bollinger Bands are two lines plotted 2 standard deviations away from a simple moving average. It is one of the most popular techical analysis techniques (in finance). Bollinger said 88-89% of the 'action' shold take place between the bands, which makes moves near or outside the bands significant.
+
+Since standard deviation is a measure of volitility, Bollinger bands widen when the market becomes more volitile and contract during less volitile periods. 
+
+## Interpreting Bollinger Bands
+*Wide bands* - volitility market
+*Narrow bands* - less volitility
+*Upper band* - A move near the upper band shows strength and also suggests the market is overbought. Prices are relatively high when at or above the upper band.
+*Lower band* - A move near the lower band shows weakness and suggests the market is oversold. Prices are relatively low when at or below the lower band.
+*M-Tops & W-bottoms* - Bollinger bands can be used to identify 'M-top' and 'W-bottom' patterns. M-tops (or double top) occurs during a bulling market and signals a downturn. W-bottoms form in a downtrend and signal an upward bounce.
+

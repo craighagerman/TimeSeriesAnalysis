@@ -7,6 +7,25 @@ library(dygraphs)
 shinyUI(navbarPage("Time Series",
     tabPanel("About"),
 
+    
+    tabPanel("Moving Average",
+             sidebarLayout(
+               sidebarPanel(
+                 selectInput("datasetSma", "Twitter dataset:", 
+                             choices = c("Trump", "ISIL Arabic", "ISIL English")),
+                 selectInput("sentSma", "Sentiment:",
+                             choices = c("Total Volume", "Positive %", "Negative %", "Net %")),
+                 #sliderInput("iqr", "IQR Multiplier", 1.0, 3.0, 1.5, 0.5),
+                 htmlOutput("aboutSma1")
+                 
+               ),
+               
+               mainPanel(
+                 dygraphOutput("smatsplot"),
+                 htmlOutput("aboutSma2")
+               )
+             )),
+    
     tabPanel("IQR Outliers",
              sidebarLayout(
                sidebarPanel(

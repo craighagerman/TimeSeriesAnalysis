@@ -1,0 +1,17 @@
+<!-- ------------------------------
+rmarkdown::render("input.Rmd")
+------------------------------ -->
+---
+title: "RSI"
+output: html_document
+---
+
+## Relative Strength Index
+
+The relative strength index (RSI) is a very popular momentum indicator which compares the magnitude of recent gains and losses. RSI is used in technical analysis to indicate if an asset is overbought or oversold.
+
+
+
+## Interpreting RSI
+*Above 70* - an asset is getting overvalued and may experience a pullback. 
+*Below 30* - an asset is likely to become undervalued

@@ -1,0 +1,33 @@
+<!-- ------------------------------
+rmarkdown::render("input.Rmd")
+------------------------------ -->
+---
+title: "SMA"
+output: html_document
+---
+
+## Simple Moving Average
+
+The average value over a sliding window of time. Short-term moving averages respond quickly to changes while longer-term moving averages are slow to react. The crossover points of two such moving average lines are trend and momentum indicators. 
+
+
+## Exponential Moving Average
+
+Similar to a simple moving average except more weight is given to recent data.ß
+
+
+## Interpreting SMA
+(1)__asset-MA-crossover__
+Plot a single MA line against the underlying pattern.
+*cross below a MA line* - beginning of a downward trend
+*cross above a MA line* - beginning of an upward trend
+
+(2)__MA-MA-crossover__
+Plot two MA lines against the underlying pattern; one short term, one long term. In finance 50/100 or 50/200 is common, but some people use short periods such as 10/20 or 15/30.
+*short crosses long MA from below* - a buy signal; upward trend reversal
+*short above long MA* - upward trend signal; keep in
+*short crosses long MA from above* - a sell signal, downward trend reversal
+*long above short* - bearish signal; stay out of the market
+
+(3) __triple-crossover or MA-ribbon__
+Draw 3 or more MA lines. Use additional MA lines to validate the signal given by others. e.g. plot 5/10/20 MA lines - the 5-day line cross over the others is taken as the primary signal with the 10-day cross over the 20-day line taken used as confirmation.

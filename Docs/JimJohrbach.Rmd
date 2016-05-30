@@ -1,0 +1,14 @@
+---
+title: "Jim Johrbach"
+output: html_document
+---
+
+# Kate Stalter interview with Jim Rohrbach
+
+
+Jim Johrbach on market timing methodology - if you can identify when the trend changes that is all you need. It is not that difficult if you spend the time to figure it out. 
+
+He says nobody is teaching university students techical analysis because professors don't know how to teach it. 
+
+One simple but effective approach to trend detection is moving average crossover. Pick two moving averages (Rohrbach likes to use exponential MA) and plot them against your investment. Other people suggest using 50/100 or 50/200. Rohrbach says that takes too long to act - try 15/30 or 10/20. Such a MA crossover tells you when to stay in, when to get out. e.g. keep in as long as the 10 is above the 20. That is for an individual investment, not the market itself. 
+

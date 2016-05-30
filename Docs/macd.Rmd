@@ -1,0 +1,21 @@
+<!-- ------------------------------
+rmarkdown::render("input.Rmd")
+------------------------------ -->
+---
+title: "MACD"
+output: html_document
+---
+
+## Moving average convergence divergence
+
+Moving average convergence divergence (MACD) is a trend-following momentum indicator that shows the relationship between two moving averages of prices (Investopedia). A nine-day EMA of the MACD (called the signal line) is plotted on top of the MACD. The crossover of the two functions as a trigger for buy and sell signals.
+
+
+## Interpreting MACD
+*Crossover* - When MACD falls below the signal line it is a bearish signal (sell). When MACD rises
+      above the signal line it is a bullish signal (buy)
+*Divergence* - When the observation diverges from the MACD it signals the end 
+      of the current trend.
+*Dramatic Rise* - When the MACD rises dramatically (i.e. the shorter MA  pulls away from the longer MA) it signals the security is overbought and will soon return to normal levels
+*Zero line movement* - When the MACD is above zero the short term average is above the long term average, signalling upward momentum. (and vice versa)
+

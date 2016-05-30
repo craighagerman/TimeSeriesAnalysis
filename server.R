@@ -1,6 +1,6 @@
-# runApp("/Users/chagerman/Projects/TimeSeriesAnalysis/Rexploration/timeseries")
+# runApp("/Users/chagerman/Projects/TimeSeriesAnalysis/src/R/TimeSeriesAnalysis")
 
-# runApp("/Users/chagerman/Projects/TimeSeriesAnalysis/Rexploration/BollingerApp")
+
 
 library(dygraphs)
 library(datasets)
@@ -10,6 +10,8 @@ source("BollingerLogic.R")
 source("MACDLogic.R")
 source("IQROutlierLogic.R")
 source("RSILogic.R")
+source("SMA.R")
+source("aboutTA.R")
 
 
 # isOutlier <- function(o, u, d) {
@@ -54,7 +56,10 @@ shinyServer(function(input, output) {
     div(HTML("<br>&nbsp<br>&nbsp<br>"))
   })
   
-  # Bollinger Bands App  ----------------------------------------------------------
+
+  
+  
+  # -----  Bollinger Bands App  ----------------------------------------------------------
   datasetInputbb <- reactive({
     switch(input$datasetbb,
            "Trump" = trumpdata,
@@ -82,7 +87,9 @@ shinyServer(function(input, output) {
   })
   
   
-  # MACD vs Signal App  ----------------------------------------------------------
+  
+  
+  # -----  MACD vs Signal App  ----------------------------------------------------------
   datasetInputmacd <- reactive({
     switch(input$datasetmacd,
            "Trump" = trumpdata,
@@ -111,28 +118,54 @@ shinyServer(function(input, output) {
       (Investopedia) A nine-day EMA of the MACD (called the signal line) is plotted on top of the MACD. The crossover of the two functions as a trigger for
     buy and sell signals.'
   })
-  output$aboutMacd2 <- renderUI({
-    h <-  '<h2>Interpreting MACD</h2>'
-    interpretation1 <- '<p><b>Crossover</b> - When MACD falls below the signal line it is a bearish signal (sell). When MACD rises
-      above the signal line it is a bullish signal (buy)'
-    interpretation2 <- '<p><b>Divergence</b> - When the observation diverges from the MACD it signals the end 
-      of the current trend.</p>'
-    interpretation3 <- '<p><b>Dramatic Rise</b> - When the MACD rises dramatically (i.e. the shorter MA 
-      pulls away from the longer MA) it signals the security is overbought and will soon return to normal levels</p>'
-    interpretation4 <- '<p><b>Zero line movement</b> - When the MACD is above zero the short term average is above 
-      the long term average, signalling upward momentum. (and vice versa) </p>'
-    
-    div(HTML(paste(h, interpretation1, interpretation2, interpretation3, interpretation4)))
+
+  output$aboutMacd1 <- renderText({
+    macd_def
   })
+  
+  output$aboutMacd2 <- renderUI({
+    div(HTML(macd_inter))
+  })
+  
+  
+  
+  
 
   
   
+  # -----  SMA/EMA Moving Average  ----------------------------------------------------------------
+  datasetInputSma <- reactive({
+    switch(input$datasetSma,
+           "Trump" = trumpdata,
+           "ISIL Arabic" = isilar,
+           "ISIL English" = isilen)
+  })
+  sentInputSma <- reactive({
+    switch(input$sentSma,
+           "Total Volume" = "total",
+           "Positive %" = "posPct", 
+           "Negative %" = "negPct", 
+           "Net %" = "netPct")
+  })
+  output$smatsplot <- renderDygraph({
+    indata <- datasetInputSma()
+    sentType <- sentInputSma()
+    smaPlot(indata, sentType)
+  })
+  output$aboutSma1 <- renderUI({
+    div(HTML(sma_def))
+  })
+  output$aboutSma2 <- renderUI({
+    div(HTML(sma_inter))
+  })
   
   
   
   
   
-  # IQR Outliers  ----------------------------------------------------------------
+    
+  
+  # -----  IQR Outliers  ----------------------------------------------------------------
   datasetInputiqr <- reactive({
     switch(input$datasetiqr,
            "Trump" = trumpdata,
