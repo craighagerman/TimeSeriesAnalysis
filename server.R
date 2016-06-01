@@ -57,6 +57,9 @@ shinyServer(function(input, output) {
   })
   
 
+  output$aboutTS <- renderUI({
+    div(HTML(ts_def))
+  })
   
   
   # -----  Bollinger Bands App  ----------------------------------------------------------
@@ -85,7 +88,15 @@ shinyServer(function(input, output) {
     nperiods <- periodInput()
     bollingerchart(indata, sentType, nperiods, input$stddev)
   })
+  output$aboutbb1 <- renderUI({
+    div(HTML(bb_def))
+  })
+  output$aboutbb2 <- renderUI({
+    div(HTML(bb_inter))
+  })
   
+  
+   
   
   
   
@@ -128,7 +139,7 @@ shinyServer(function(input, output) {
   })
   
   
-  
+
   
 
   
@@ -150,7 +161,7 @@ shinyServer(function(input, output) {
   output$smatsplot <- renderDygraph({
     indata <- datasetInputSma()
     sentType <- sentInputSma()
-    smaPlot(indata, sentType)
+    smaPlot(indata, sentType, input$semacheck)
   })
   output$aboutSma1 <- renderUI({
     div(HTML(sma_def))
@@ -179,12 +190,19 @@ shinyServer(function(input, output) {
            "Negative %" = "negPct", 
            "Net %" = "netPct")
   })
-    output$iqrtsplot <- renderDygraph({
+  #sliderVal <- input$iqrslider
+  
+  output$iqrtsplot <- renderDygraph({
     indata <- datasetInputiqr()
     sentType <- sentInputiqr()
-    iqrOutlierPlot(indata, sentType)
+    iqrOutlierPlot(indata, sentType, input$iqrslider)
   })
-  
+  output$aboutIqr1 <- renderUI({
+      div(HTML(iqr_def))
+    })
+  output$aboutIqr2 <- renderUI({
+      div(HTML(iqr_inter))
+    })
   
   
   
@@ -214,6 +232,15 @@ shinyServer(function(input, output) {
     sentType <- sentInputrsi()
     rsiplot(indata, sentType)
   })
+  output$aboutRsi1 <- renderUI({
+    div(HTML(rsi_def))
+  })
+  output$aboutRsi2 <- renderUI({
+    div(HTML(rsi_inter))
+  })
+  
+
+  
   
   
   

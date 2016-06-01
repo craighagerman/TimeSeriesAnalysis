@@ -28,8 +28,8 @@ createXtsObject <- function(x, dates) {
 }
 
 
-iqrOutlierPlot <- function(indata, sentType){
-  indata$outliers <- IQROutliers(indata[,eval(sentType)], indata$date)
+iqrOutlierPlot <- function(indata, sentType, sliderVal){
+  indata$outliers <- IQROutliers(indata[,eval(sentType)], indata$date, sliderVal)
   keeps <- c("date", sentType, "outliers")
   df <- indata[keeps]
   xt <- xts(df[,-1], order.by=df$date)
