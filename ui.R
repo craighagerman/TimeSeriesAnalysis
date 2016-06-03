@@ -2,6 +2,7 @@
 
 library(markdown)
 library(shiny)
+library(shinydashboard)
 library(dygraphs)
 
 shinyUI(navbarPage("Time Series",
@@ -39,11 +40,27 @@ shinyUI(navbarPage("Time Series",
                  htmlOutput("aboutIqr1")
                  
                ),
+# 
+#                mainPanel(
+#                 dygraphOutput("iqrtsplot"),
+#                 htmlOutput("aboutIqr2")
+#                )               
+               
                mainPanel(
-                 dygraphOutput("iqrtsplot"),
+                 fluidRow(
+                    box(dygraphOutput("iqrtsplot"), width=9),
+                    box(textOutput("eventDivID"), title = "Events", collapsible = TRUE, width=3)
+                 
+                 ),
                  htmlOutput("aboutIqr2")
                )
+
+
       )),
+
+
+
+
 
     
 tabPanel("Bollinger Bands",
