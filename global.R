@@ -27,24 +27,13 @@ df2$date <- as.Date(df2$date)
 df3$date <- as.Date(df3$date)
 df4$date <- as.Date(df4$date)
 eventdf <- rbind(df1, df2, df3, df4)
-
+eventdf$event <- sapply(eventdf$event, as.character)
 
 # add events to indata above
 isilen <- as.data.frame(merge(eventdf, isilen, by="date", all.x=F, all.y=T))
 isilar <- as.data.frame(merge(eventdf, isilar, by="date", all.x=F, all.y=T))
 trumpdata <- as.data.frame(merge(eventdf, trumpdata, by="date", all.x=F, all.y=T))
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+isilen[is.na(isilen)] <- ""
+isilar[is.na(isilar)] <- ""
+trumpdata[is.na(trumpdata)] <- ""
 
