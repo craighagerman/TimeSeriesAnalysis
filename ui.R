@@ -87,6 +87,9 @@ shinyUI(navbarPage("Time Series",
          )),
 
 
+
+
+
     # -----------     MACD     ----------- 
     tabPanel("MACD",
              sidebarLayout(
@@ -96,10 +99,7 @@ shinyUI(navbarPage("Time Series",
                  selectInput("sentmacd", "Sentiment:",
                              choices = c("Total Volume", "Positive %", "Negative %", "Net %")),
                  textOutput("aboutMacd1")
-                 #htmlOutput("aboutMacd2")
                  ),
-
-
                mainPanel(
                  tabsetPanel(type="pills",
                    tabPanel("Interpretation", 
@@ -124,16 +124,29 @@ shinyUI(navbarPage("Time Series",
                              choices = c("Trump", "ISIL Arabic", "ISIL English")),
                  selectInput("sentrsi", "Sentiment:",
                              choices = c("Total Volume", "Positive %", "Negative %", "Net %")),
-                 htmlOutput("aboutRsi1"),
-                 htmlOutput("aboutRsi2")
+                 htmlOutput("aboutRsi1")
                ),
                
-               mainPanel(
-                 dygraphOutput("rsitsplot1", width = "100%", height = "100px"),
-                 dygraphOutput("rsitsplot2"),
-                 textOutput("eventDivRSI")
-                 #htmlOutput("aboutRsi2")
-               )
+#                mainPanel(
+#                  dygraphOutput("rsitsplot1", width = "100%", height = "100px"),
+#                  dygraphOutput("rsitsplot2"),
+#                  textOutput("eventDivRSI")
+#                  #htmlOutput("aboutRsi2")
+#                )
+
+                mainPanel(
+                  tabsetPanel(
+                    tabPanel("XYZ", 
+                      dygraphOutput("rsitsplot1a", width = "100%", height = "100px"),
+                      dygraphOutput("rsitsplot2a"),
+                      htmlOutput("aboutRsi2")),
+                    tabPanel("Zzzz", 
+                      dygraphOutput("rsitsplot1b", width = "100%", height = "100px"),
+                      dygraphOutput("rsitsplot2b"),
+                      textOutput("eventDivRSI")
+                      )
+                    )
+                  )
              ))
              
 ))

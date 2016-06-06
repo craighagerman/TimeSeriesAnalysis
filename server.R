@@ -217,7 +217,7 @@ shinyServer(function(input, output) {
   
   
    
-  # RSI plot ---------------------------------------------------------------------
+  # -----------     RSI     -----------
     datasetInputrsi <- reactive({
       switch(input$datasetrsi,
              "Trump" = trumpdata,
@@ -231,13 +231,37 @@ shinyServer(function(input, output) {
              "Negative %" = "negPct", 
              "Net %" = "netPct")
     })
-  output$rsitsplot1 <- renderDygraph({
+
+    output$rsitsplot1 <- renderDygraph({
+      indata <- datasetInputrsi()
+      sentType <- sentInputrsi()
+      rsidataplot(indata, sentType)
+    })
+    
+    output$rsitsplot2 <- renderDygraph({
+      indata <- datasetInputrsi()
+      sentType <- sentInputrsi()
+      rsiplot(indata, sentType)
+    })
+    
+  output$rsitsplot1a <- renderDygraph({
     indata <- datasetInputrsi()
     sentType <- sentInputrsi()
     rsidataplot(indata, sentType)
   })
 
-  output$rsitsplot2 <- renderDygraph({
+  output$rsitsplot2a <- renderDygraph({
+    indata <- datasetInputrsi()
+    sentType <- sentInputrsi()
+    rsiplot(indata, sentType)
+  })
+  output$rsitsplot1b <- renderDygraph({
+    indata <- datasetInputrsi()
+    sentType <- sentInputrsi()
+    rsidataplot(indata, sentType)
+  })
+  
+  output$rsitsplot2b <- renderDygraph({
     indata <- datasetInputrsi()
     sentType <- sentInputrsi()
     rsiplot(indata, sentType)
