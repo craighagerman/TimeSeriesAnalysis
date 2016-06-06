@@ -31,30 +31,39 @@ createXtsObject <- function(x, dates) {
 iqrOutlierPlot <- function(indata, sentType, sliderVal){
   indata$outliers <- IQROutliers(indata[,eval(sentType)], indata$date, sliderVal)
   annotations <- indata$event
-  #keeps <- c("date", sentType, "outliers")
-  keeps <- c("date", sentType, "outliers", "event")
+  keeps <- c("date", sentType, "outliers")
+  #keeps <- c("date", sentType, "outliers", "event")
   df <- indata[keeps]
   xt <- xts(df[,-1], order.by=df$date)
   dyG <- dygraph(xt) %>%
     dySeries(sentType, drawPoints=TRUE, color="gray") %>%
     dySeries("outliers", drawPoints=TRUE, pointSize=3, strokeWidth=0, color="red") %>%
-    dySeries("event", drawPoints=FALSE, strokeWidth=0 ) %>%
-    dyLegend(labelsDiv = "eventDivID") %>%
+    #dySeries("event", drawPoints=FALSE, strokeWidth=0 ) %>%
+    #dyLegend(labelsDiv = "eventDivID") %>%
     dyRangeSelector()  
     
 
   # working/good with default label and external div label
   dyG %>%
+#     dyCallbacks(
+#       highlightCallback = sprintf(
+#         'function(e, x, pts, row) {
+#           var customLegend = %s
+#           var legendel = document.getElementById("eventDivID");
+#           legendel.innerHTML = legendel.innerHTML + "<br>" + customLegend[row]; 
+#         }',
+#         jsonlite::toJSON( annotations )
+#       )
+#     )  
     dyCallbacks(
       highlightCallback = sprintf(
         'function(e, x, pts, row) {
-          var customLegend = %s
-          var legendel = document.getElementById("eventDivID");
-          legendel.innerHTML = legendel.innerHTML + "<br>" + customLegend[row]; 
-        }',
+        var customLegend = %s
+        var legend = document.getElementById("eventDivIQR");
+        legend.innerHTML = "<br>" + customLegend[row];  }',
         jsonlite::toJSON( annotations )
       )
-    )  
+    ) 
 }
 
 

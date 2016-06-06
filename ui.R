@@ -20,13 +20,20 @@ shinyUI(navbarPage("Time Series",
                  selectInput("sentSma", "Sentiment:",
                              choices = c("Total Volume", "Positive %", "Negative %", "Net %")),
                  checkboxInput("semacheck", "Exponential"),
-                 htmlOutput("aboutSma1"),
-                 htmlOutput("aboutSma2")
+                 htmlOutput("aboutSma1")
                ),
+
                mainPanel(
-                 dygraphOutput("smatsplot"),
-                 #htmlOutput("aboutSma2")
-                 textOutput("eventDivMA")
+                 tabsetPanel(
+                   tabPanel("Interpretation", 
+                            dygraphOutput("smatsplot1a"),
+                            htmlOutput("aboutSma2")
+                    ),
+                   tabPanel("Events", 
+                            dygraphOutput("smatsplot1b"),
+                            textOutput("eventDivMA")
+                   )
+                 )
                )
              )),
 
@@ -45,23 +52,44 @@ shinyUI(navbarPage("Time Series",
                  htmlOutput("aboutIqr1")
                  
                ),
-# 
-#                mainPanel(
-#                 dygraphOutput("iqrtsplot"),
-#                 htmlOutput("aboutIqr2")
-#                )               
-               
                mainPanel(
-                 fluidRow(
-                    box(dygraphOutput("iqrtsplot"), width=9),
-                    box(textOutput("eventDivID"), title = "Events", collapsible = TRUE, width=3)
-                 
-                 ),
-                 htmlOutput("aboutIqr2")
-               )
-
-
+                 tabsetPanel(
+                   tabPanel("Interpretation", 
+                            dygraphOutput("iqrtsplot1a"),
+                            htmlOutput("aboutIqr2")
+                            ),
+                   tabPanel("Events", 
+                            dygraphOutput("iqrtsplot1b"),
+                            textOutput("eventDivIQR")
+                            )
+                   )
+                 )
       )),
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -87,6 +115,14 @@ shinyUI(navbarPage("Time Series",
          )),
 
 
+  
+  
+  
+  
+  
+  
+  
+  
 
 
 
@@ -101,7 +137,7 @@ shinyUI(navbarPage("Time Series",
                  textOutput("aboutMacd1")
                  ),
                mainPanel(
-                 tabsetPanel(type="pills",
+                 tabsetPanel(
                    tabPanel("Interpretation", 
                             dygraphOutput("MACDdygraph1a", width = "100%", height = "100px"),
                             dygraphOutput("MACDdygraph2a"),
@@ -126,21 +162,13 @@ shinyUI(navbarPage("Time Series",
                              choices = c("Total Volume", "Positive %", "Negative %", "Net %")),
                  htmlOutput("aboutRsi1")
                ),
-               
-#                mainPanel(
-#                  dygraphOutput("rsitsplot1", width = "100%", height = "100px"),
-#                  dygraphOutput("rsitsplot2"),
-#                  textOutput("eventDivRSI")
-#                  #htmlOutput("aboutRsi2")
-#                )
-
                 mainPanel(
                   tabsetPanel(
-                    tabPanel("XYZ", 
+                    tabPanel("Interpretation", 
                       dygraphOutput("rsitsplot1a", width = "100%", height = "100px"),
                       dygraphOutput("rsitsplot2a"),
                       htmlOutput("aboutRsi2")),
-                    tabPanel("Zzzz", 
+                    tabPanel("Events", 
                       dygraphOutput("rsitsplot1b", width = "100%", height = "100px"),
                       dygraphOutput("rsitsplot2b"),
                       textOutput("eventDivRSI")

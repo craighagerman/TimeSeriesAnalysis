@@ -168,7 +168,17 @@ shinyServer(function(input, output) {
            "Negative %" = "negPct", 
            "Net %" = "netPct")
   })
-  output$smatsplot <- renderDygraph({
+#   output$smatsplot <- renderDygraph({
+#     indata <- datasetInputSma()
+#     sentType <- sentInputSma()
+#     smaPlot(indata, sentType, input$semacheck)
+#   })
+  output$smatsplot1a <- renderDygraph({
+    indata <- datasetInputSma()
+    sentType <- sentInputSma()
+    smaPlot(indata, sentType, input$semacheck)
+  })
+  output$smatsplot1b <- renderDygraph({
     indata <- datasetInputSma()
     sentType <- sentInputSma()
     smaPlot(indata, sentType, input$semacheck)
@@ -201,12 +211,24 @@ shinyServer(function(input, output) {
            "Net %" = "netPct")
   })
   #sliderVal <- input$iqrslider
+#   
+#   output$iqrtsplot <- renderDygraph({
+#     indata <- datasetInputiqr()
+#     sentType <- sentInputiqr()
+#     iqrOutlierPlot(indata, sentType, input$iqrslider)
+#   })
   
-  output$iqrtsplot <- renderDygraph({
+  output$iqrtsplot1a <- renderDygraph({
     indata <- datasetInputiqr()
     sentType <- sentInputiqr()
     iqrOutlierPlot(indata, sentType, input$iqrslider)
   })
+  output$iqrtsplot1b <- renderDygraph({
+    indata <- datasetInputiqr()
+    sentType <- sentInputiqr()
+    iqrOutlierPlot(indata, sentType, input$iqrslider)
+  })
+  
   output$aboutIqr1 <- renderUI({
       div(HTML(iqr_def))
     })
@@ -232,17 +254,7 @@ shinyServer(function(input, output) {
              "Net %" = "netPct")
     })
 
-    output$rsitsplot1 <- renderDygraph({
-      indata <- datasetInputrsi()
-      sentType <- sentInputrsi()
-      rsidataplot(indata, sentType)
-    })
-    
-    output$rsitsplot2 <- renderDygraph({
-      indata <- datasetInputrsi()
-      sentType <- sentInputrsi()
-      rsiplot(indata, sentType)
-    })
+
     
   output$rsitsplot1a <- renderDygraph({
     indata <- datasetInputrsi()
