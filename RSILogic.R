@@ -3,15 +3,6 @@ library(TTR)
 library(xts)
 
 
-# rsidataplot <- function(indata, sentType) {
-#   keeps <- c("date", sentType)
-#   df <- indata[keeps]
-#   xt <- xts(df[,-1], order.by=df$date)
-#   colnames(xt) <- "observation"
-#   dygraph(xt, main="Observation", group="rsi-ts") 
-# }
-
-
 rsiplot <- function(indata, sentType) {
   # create an event vector
   annotations <- indata$event

@@ -11,14 +11,14 @@ shinyUI(navbarPage("Time Series",
              ),
 
     
-    # -----------     MOVING AVERAGES     -----------
+    # -----------     MOVING AVERAGES     --------------------------------------------
     tabPanel("Moving Average",
              sidebarLayout(
                sidebarPanel(
                  selectInput("datasetSma", "Twitter dataset:", 
-                             choices = c("Trump", "ISIL Arabic", "ISIL English")),
+                             choices = c("Trump", "ISIL Arabic", "ISIL English"), selected="ISIL English"),
                  selectInput("sentSma", "Sentiment:",
-                             choices = c("Total Volume", "Positive %", "Negative %", "Net %")),
+                             choices = c("Total Volume", "Positive %", "Negative %", "Net %"), selected="Net %"),
                  checkboxInput("semacheck", "Exponential"),
                  htmlOutput("aboutSma1")
                ),
@@ -36,18 +36,16 @@ shinyUI(navbarPage("Time Series",
                  )
                )
              )),
-
-
     
     
-    # -----------     IQR OUTLIERS     -----------
+    # -----------     IQR OUTLIERS     --------------------------------------------
     tabPanel("IQR Outliers",
              sidebarLayout(
                sidebarPanel(
                  selectInput("datasetiqr", "Twitter dataset:", 
-                             choices = c("Trump", "ISIL Arabic", "ISIL English")),
+                             choices = c("Trump", "ISIL Arabic", "ISIL English"), selected="ISIL English"),
                  selectInput("sentiqr", "Sentiment:",
-                             choices = c("Total Volume", "Positive %", "Negative %", "Net %")),
+                             choices = c("Total Volume", "Positive %", "Negative %", "Net %"), selected="Net %"),
                  sliderInput("iqrslider", "IQR Multiplier", 1.0, 3.0, 1.5, 0.5),
                  htmlOutput("aboutIqr1")
                  
@@ -67,73 +65,44 @@ shinyUI(navbarPage("Time Series",
       )),
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  # -----------     BOLLINGER BANDS     -----------    
+  # -----------     BOLLINGER BANDS     --------------------------------------------    
   tabPanel("Bollinger Bands",
          sidebarLayout(
            sidebarPanel(
              selectInput("datasetbb", "Twitter dataset:", 
-                         choices = c("Trump", "ISIL Arabic", "ISIL English")),
+                         choices = c("Trump", "ISIL Arabic", "ISIL English"), selected="ISIL English"),
              selectInput("sentbb", "Sentiment:",
-                         choices = c("Total Volume", "Positive %", "Negative %", "Net %")),
-             selectInput("nperiods", "Number of Periods:", choices = c("1 week", "2 weeks", "4 weeks", "3 months")),
+                         choices = c("Total Volume", "Positive %", "Negative %", "Net %"), selected="Net %"),
+             selectInput("nperiods", "Number of Periods:", choices = c("1 week", "2 weeks", "4 weeks", "3 months"), selected="2 weeks"),
              sliderInput("stddev", "Number of Standard Deviations:", min=1.0, max=3.5, value=2.0, step=0.5),
              htmlOutput("aboutbb1")
            ),
            mainPanel(
-             dygraphOutput("BBdygraph"),
-             plotOutput("BBplot"),
-             htmlOutput("aboutbb2")
-           )
-         )),
+             tabsetPanel(
+               tabPanel("Interpretation", 
+                        dygraphOutput("BBdygraph1a"),
+                        htmlOutput("aboutbb2")
+               ),
+               tabPanel("Events", 
+                        dygraphOutput("BBdygraph1b"),
+                        textOutput("eventDivBB")
+               ),
+               tabPanel("quantmod BB",
+                        plotOutput("BBplot")
+               )
+             )
+             )
+  )),
 
 
-  
-  
-  
-  
-  
-  
-  
-  
-
-
-
-    # -----------     MACD     ----------- 
+    # -----------     MACD     --------------------------------------------
     tabPanel("MACD",
              sidebarLayout(
                sidebarPanel(
                  selectInput("datasetmacd", "Twitter dataset:", 
-                             choices = c("Trump", "ISIL Arabic", "ISIL English")),
+                             choices = c("Trump", "ISIL Arabic", "ISIL English"), selected="ISIL English"),
                  selectInput("sentmacd", "Sentiment:",
-                             choices = c("Total Volume", "Positive %", "Negative %", "Net %")),
+                             choices = c("Total Volume", "Positive %", "Negative %", "Net %"), selected="Net %"),
                  textOutput("aboutMacd1")
                  ),
                mainPanel(
@@ -152,14 +121,14 @@ shinyUI(navbarPage("Time Series",
 
 
 
-  # -----------     RSI     -----------
+  # -----------     RSI     --------------------------------------------
     tabPanel("RSI",
              sidebarLayout(
                sidebarPanel(
                  selectInput("datasetrsi", "Twitter dataset:", 
-                             choices = c("Trump", "ISIL Arabic", "ISIL English")),
+                             choices = c("Trump", "ISIL Arabic", "ISIL English"), selected="ISIL English"),
                  selectInput("sentrsi", "Sentiment:",
-                             choices = c("Total Volume", "Positive %", "Negative %", "Net %")),
+                             choices = c("Total Volume", "Positive %", "Negative %", "Net %"), selected="Net %"),
                  htmlOutput("aboutRsi1")
                ),
                 mainPanel(

@@ -9,7 +9,9 @@ isOutlier <- function(o, u, d) {
   else return (FALSE)
 }
 
+
 bollingerplot <- function(indata, sentType, nperiods, stddev, dateCol ) { 
+    annotations <- indata$event  
     bb20 = as.data.frame(BBands(indata[,eval(sentType)], n=nperiods, sd=stddev))
     bb20$date <- dateCol
     bb20[,eval(sentType)] <- indata[,eval(sentType)]
@@ -21,15 +23,28 @@ bollingerplot <- function(indata, sentType, nperiods, stddev, dateCol ) {
     df <- xts(df[,-1], order.by=df[,1])
     index(df) <- index(df) - 0
     
-    dygraph(df, main = paste("Bollinger Bands:" , sentType, "(", nperiods, "days )")) %>%
+    dyG <- dygraph(df, main = paste("Bollinger Bands:" , sentType, "(", nperiods, "days )")) %>%
       dySeries(sentType, drawPoints=TRUE, color="gray") %>%
       dySeries("dn", drawPoints=FALSE, color="lightpink") %>%
       dySeries("up", drawPoints=FALSE, color="lightpink") %>%
       dySeries("mavg", drawPoints=FALSE, color="blue") %>%
       dySeries("outliers", drawPoints=TRUE, pointSize=3, strokeWidth=0, color="red") %>%
       dyRangeSelector()  
+    
+    dyG %>%
+      dyCallbacks(
+        highlightCallback = sprintf(
+          'function(e, x, pts, row) {
+          var customLegend = %s
+          var legend = document.getElementById("eventDivBB");
+          legend.innerHTML = "<br>" + customLegend[row];  }',
+          jsonlite::toJSON( annotations )
+        )
+      ) 
 }
 
+
+# QuantMod's Bollinger Band chart
 bollingerchart <- function(indata, sentType, nperiods, stddev) { 
   keeps <- c("date", sentType)
   df <- indata[keeps]

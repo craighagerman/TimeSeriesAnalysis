@@ -14,11 +14,7 @@ source("SMA.R")
 source("aboutTA.R")
 
 
-# isOutlier <- function(o, u, d) {
-#   if (is.na(u) | is.na(d)) return (FALSE)
-#   if ((o > u) | (o < d)) return (TRUE)
-#   else return (FALSE)
-# }
+
 
 shinyServer(function(input, output) {
   # REACTIVE INPUT ------------------
@@ -45,24 +41,86 @@ shinyServer(function(input, output) {
   
 
   
-  
-
-  
-  
-    
-  
-  # REACTIVE OUTPUT -----------------
+  # ==========     REACTIVE OUTPUT     ==========
   output$space <- renderUI({
     div(HTML("<br>&nbsp<br>&nbsp<br>"))
   })
-  
-
   output$aboutTS <- renderUI({
     div(HTML(ts_def))
   })
   
+
   
-  # -----  Bollinger Bands App  ----------------------------------------------------------
+  
+  # -----------     MOVING AVERAGES     --------------------------------------------
+  datasetInputSma <- reactive({
+    switch(input$datasetSma,
+           "Trump" = trumpdata,
+           "ISIL Arabic" = isilar,
+           "ISIL English" = isilen)
+  })
+  sentInputSma <- reactive({
+    switch(input$sentSma,
+           "Total Volume" = "total",
+           "Positive %" = "posPct", 
+           "Negative %" = "negPct", 
+           "Net %" = "netPct")
+  })
+
+  output$smatsplot1a <- renderDygraph({
+    indata <- datasetInputSma()
+    sentType <- sentInputSma()
+    smaPlot(indata, sentType, input$semacheck)
+  })
+  output$smatsplot1b <- renderDygraph({
+    indata <- datasetInputSma()
+    sentType <- sentInputSma()
+    smaPlot(indata, sentType, input$semacheck)
+  })
+  output$aboutSma1 <- renderUI({
+    div(HTML(sma_def))
+  })
+  output$aboutSma2 <- renderUI({
+    div(HTML(sma_inter))
+  })
+  
+  
+  # -----------     IQR OUTLIERS     --------------------------------------------
+  datasetInputiqr <- reactive({
+    switch(input$datasetiqr,
+           "Trump" = trumpdata,
+           "ISIL Arabic" = isilar,
+           "ISIL English" = isilen)
+  })
+  sentInputiqr <- reactive({
+    switch(input$sentiqr,
+           "Total Volume" = "total",
+           "Positive %" = "posPct", 
+           "Negative %" = "negPct", 
+           "Net %" = "netPct")
+  })
+  
+  output$iqrtsplot1a <- renderDygraph({
+    indata <- datasetInputiqr()
+    sentType <- sentInputiqr()
+    iqrOutlierPlot(indata, sentType, input$iqrslider)
+  })
+  output$iqrtsplot1b <- renderDygraph({
+    indata <- datasetInputiqr()
+    sentType <- sentInputiqr()
+    iqrOutlierPlot(indata, sentType, input$iqrslider)
+  })
+  
+  output$aboutIqr1 <- renderUI({
+    div(HTML(iqr_def))
+  })
+  output$aboutIqr2 <- renderUI({
+    div(HTML(iqr_inter))
+  })
+  
+  
+
+  # -----------     BOLLINGER BANDS     --------------------------------------------
   datasetInputbb <- reactive({
     switch(input$datasetbb,
            "Trump" = trumpdata,
@@ -76,7 +134,14 @@ shinyServer(function(input, output) {
            "Negative %" = "negPct", 
            "Net %" = "netPct")
   })
-  output$BBdygraph <- renderDygraph({
+
+  output$BBdygraph1a <- renderDygraph({
+    indata <- datasetInputbb()
+    sentType <- sentInputbb()
+    nperiods <- periodInput()
+    bollingerplot(indata, sentType, nperiods, input$stddev, indata$date )
+  })
+  output$BBdygraph1b <- renderDygraph({
     indata <- datasetInputbb()
     sentType <- sentInputbb()
     nperiods <- periodInput()
@@ -96,11 +161,8 @@ shinyServer(function(input, output) {
   })
   
   
-   
   
-  
-  
-  # -----  MACD vs Signal App  ----------------------------------------------------------
+  # -----------     MACD     --------------------------------------------
   datasetInputmacd <- reactive({
     switch(input$datasetmacd,
            "Trump" = trumpdata,
@@ -148,98 +210,9 @@ shinyServer(function(input, output) {
     div(HTML(macd_inter))
   })
   
-  
-
-  
-
-  
-  
-  # -----  SMA/EMA Moving Average  ----------------------------------------------------------------
-  datasetInputSma <- reactive({
-    switch(input$datasetSma,
-           "Trump" = trumpdata,
-           "ISIL Arabic" = isilar,
-           "ISIL English" = isilen)
-  })
-  sentInputSma <- reactive({
-    switch(input$sentSma,
-           "Total Volume" = "total",
-           "Positive %" = "posPct", 
-           "Negative %" = "negPct", 
-           "Net %" = "netPct")
-  })
-#   output$smatsplot <- renderDygraph({
-#     indata <- datasetInputSma()
-#     sentType <- sentInputSma()
-#     smaPlot(indata, sentType, input$semacheck)
-#   })
-  output$smatsplot1a <- renderDygraph({
-    indata <- datasetInputSma()
-    sentType <- sentInputSma()
-    smaPlot(indata, sentType, input$semacheck)
-  })
-  output$smatsplot1b <- renderDygraph({
-    indata <- datasetInputSma()
-    sentType <- sentInputSma()
-    smaPlot(indata, sentType, input$semacheck)
-  })
-  output$aboutSma1 <- renderUI({
-    div(HTML(sma_def))
-  })
-  output$aboutSma2 <- renderUI({
-    div(HTML(sma_inter))
-  })
-  
-  
-  
-  
-  
-    
-  
-  # -----  IQR Outliers  ----------------------------------------------------------------
-  datasetInputiqr <- reactive({
-    switch(input$datasetiqr,
-           "Trump" = trumpdata,
-           "ISIL Arabic" = isilar,
-           "ISIL English" = isilen)
-  })
-  sentInputiqr <- reactive({
-    switch(input$sentiqr,
-           "Total Volume" = "total",
-           "Positive %" = "posPct", 
-           "Negative %" = "negPct", 
-           "Net %" = "netPct")
-  })
-  #sliderVal <- input$iqrslider
-#   
-#   output$iqrtsplot <- renderDygraph({
-#     indata <- datasetInputiqr()
-#     sentType <- sentInputiqr()
-#     iqrOutlierPlot(indata, sentType, input$iqrslider)
-#   })
-  
-  output$iqrtsplot1a <- renderDygraph({
-    indata <- datasetInputiqr()
-    sentType <- sentInputiqr()
-    iqrOutlierPlot(indata, sentType, input$iqrslider)
-  })
-  output$iqrtsplot1b <- renderDygraph({
-    indata <- datasetInputiqr()
-    sentType <- sentInputiqr()
-    iqrOutlierPlot(indata, sentType, input$iqrslider)
-  })
-  
-  output$aboutIqr1 <- renderUI({
-      div(HTML(iqr_def))
-    })
-  output$aboutIqr2 <- renderUI({
-      div(HTML(iqr_inter))
-    })
-  
-  
-  
    
-  # -----------     RSI     -----------
+   
+  # -----------     RSI     --------------------------------------------
     datasetInputrsi <- reactive({
       switch(input$datasetrsi,
              "Trump" = trumpdata,
@@ -253,8 +226,6 @@ shinyServer(function(input, output) {
              "Negative %" = "negPct", 
              "Net %" = "netPct")
     })
-
-
     
   output$rsitsplot1a <- renderDygraph({
     indata <- datasetInputrsi()
