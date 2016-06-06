@@ -111,12 +111,16 @@ shinyUI(navbarPage("Time Series",
                             dygraphOutput("MACDdygraph1a", width = "100%", height = "100px"),
                             dygraphOutput("MACDdygraph2a"),
                             htmlOutput("aboutMacd2")),
-                   tabPanel("Isil Events", 
+                   tabPanel("Events", 
                             dygraphOutput("MACDdygraph1b", width = "100%", height = "100px"),
                             dygraphOutput("MACDdygraph2b"),
-                            textOutput("eventDivMACD"))
+                            textOutput("eventDivMACD")),
+                   tabPanel("Histogram Events", 
+                          dygraphOutput("MACDdygraph3a"),
+                          dygraphOutput("MACDdygraph3b"),
+                          textOutput("eventDivMACDhistogram"))
+                  )
                  )
-               )
              )),
 
 

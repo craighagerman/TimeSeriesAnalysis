@@ -18,4 +18,4 @@ Moving average convergence divergence (MACD) is a trend-following momentum indic
       of the current trend.
 *Dramatic Rise* - When the MACD rises dramatically (i.e. the shorter MA  pulls away from the longer MA) it signals the security is overbought and will soon return to normal levels
 *Zero line movement* - When the MACD is above zero the short term average is above the long term average, signalling upward momentum. (and vice versa)
-
+*MACD-Histogram* - This is a measure of the distance betwen MACD and its signal line. It is a forth derivative (an indicator of an indicator of an indicator) designed to anticipate signals and identify changes in momentum.

@@ -196,10 +196,26 @@ shinyServer(function(input, output) {
     sentType <- sentInputmacd()
     macdplot2(indata, sentType)
   })
+  output$MACDdygraph3a <- renderDygraph({
+    indata <- datasetInputmacd()
+    sentType <- sentInputmacd()
+    macdplot_unannotated(indata, sentType)
+  })
+  output$MACDdygraph3b <- renderDygraph({
+    indata <- datasetInputmacd()
+    sentType <- sentInputmacd()
+    macdhistogramplot(indata, sentType)
+  })
+  
+
+  
+  
+  
+  
   output$aboutMacd1 <- renderText({
     'Moving average convergence divergence (MACD) is a trend-following momentum indicator that shows the relationship between two moving averages of prices."
       (Investopedia) A nine-day EMA of the MACD (called the signal line) is plotted on top of the MACD. The crossover of the two functions as a trigger for
-    buy and sell signals.'
+    buy and sell signals. '
   })
 
   output$aboutMacd1 <- renderText({
@@ -209,6 +225,14 @@ shinyServer(function(input, output) {
   output$aboutMacd2 <- renderUI({
     div(HTML(macd_inter))
   })
+  
+  output$eventDivMACDhistogram <- renderText({
+    "one 
+    two 
+    three 
+    four"
+  })
+  
   
    
    
