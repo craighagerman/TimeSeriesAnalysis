@@ -114,12 +114,22 @@ shinyServer(function(input, output) {
            "Negative %" = "negPct", 
            "Net %" = "netPct")
   })
-    output$MACDdygraph1 <- renderDygraph({
+    output$MACDdygraph1a <- renderDygraph({
     indata <- datasetInputmacd()
     sentType <- sentInputmacd()
     macdplot1(indata, sentType)
   })
-  output$MACDdygraph2 <- renderDygraph({
+  output$MACDdygraph2a <- renderDygraph({
+    indata <- datasetInputmacd()
+    sentType <- sentInputmacd()
+    macdplot2(indata, sentType)
+  })
+  output$MACDdygraph1b <- renderDygraph({
+    indata <- datasetInputmacd()
+    sentType <- sentInputmacd()
+    macdplot1(indata, sentType)
+  })
+  output$MACDdygraph2b <- renderDygraph({
     indata <- datasetInputmacd()
     sentType <- sentInputmacd()
     macdplot2(indata, sentType)

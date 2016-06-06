@@ -11,6 +11,7 @@ shinyUI(navbarPage("Time Series",
              ),
 
     
+    # -----------     MOVING AVERAGES     -----------
     tabPanel("Moving Average",
              sidebarLayout(
                sidebarPanel(
@@ -19,16 +20,20 @@ shinyUI(navbarPage("Time Series",
                  selectInput("sentSma", "Sentiment:",
                              choices = c("Total Volume", "Positive %", "Negative %", "Net %")),
                  checkboxInput("semacheck", "Exponential"),
-                 htmlOutput("aboutSma1")
-                 
+                 htmlOutput("aboutSma1"),
+                 htmlOutput("aboutSma2")
                ),
                mainPanel(
                  dygraphOutput("smatsplot"),
-                 htmlOutput("aboutSma2")
+                 #htmlOutput("aboutSma2")
+                 textOutput("eventDivMA")
                )
              )),
 
-        
+
+    
+    
+    # -----------     IQR OUTLIERS     -----------
     tabPanel("IQR Outliers",
              sidebarLayout(
                sidebarPanel(
@@ -62,8 +67,8 @@ shinyUI(navbarPage("Time Series",
 
 
 
-    
-tabPanel("Bollinger Bands",
+  # -----------     BOLLINGER BANDS     -----------    
+  tabPanel("Bollinger Bands",
          sidebarLayout(
            sidebarPanel(
              selectInput("datasetbb", "Twitter dataset:", 
@@ -82,6 +87,7 @@ tabPanel("Bollinger Bands",
          )),
 
 
+    # -----------     MACD     ----------- 
     tabPanel("MACD",
              sidebarLayout(
                sidebarPanel(
@@ -90,19 +96,27 @@ tabPanel("Bollinger Bands",
                  selectInput("sentmacd", "Sentiment:",
                              choices = c("Total Volume", "Positive %", "Negative %", "Net %")),
                  textOutput("aboutMacd1")
-               
+                 #htmlOutput("aboutMacd2")
                  ),
-               
+
+
                mainPanel(
-                 dygraphOutput("MACDdygraph1", width = "100%", height = "100px"),
-                 htmlOutput("space"),
-                 dygraphOutput("MACDdygraph2"),
-                 htmlOutput("aboutMacd2")
+                 tabsetPanel(type="pills",
+                   tabPanel("Interpretation", 
+                            dygraphOutput("MACDdygraph1a", width = "100%", height = "100px"),
+                            dygraphOutput("MACDdygraph2a"),
+                            htmlOutput("aboutMacd2")),
+                   tabPanel("Isil Events", 
+                            dygraphOutput("MACDdygraph1b", width = "100%", height = "100px"),
+                            dygraphOutput("MACDdygraph2b"),
+                            textOutput("eventDivMACD"))
+                 )
                )
              )),
 
 
 
+  # -----------     RSI     -----------
     tabPanel("RSI",
              sidebarLayout(
                sidebarPanel(
@@ -110,13 +124,15 @@ tabPanel("Bollinger Bands",
                              choices = c("Trump", "ISIL Arabic", "ISIL English")),
                  selectInput("sentrsi", "Sentiment:",
                              choices = c("Total Volume", "Positive %", "Negative %", "Net %")),
-                 htmlOutput("aboutRsi1")
+                 htmlOutput("aboutRsi1"),
+                 htmlOutput("aboutRsi2")
                ),
                
                mainPanel(
                  dygraphOutput("rsitsplot1", width = "100%", height = "100px"),
                  dygraphOutput("rsitsplot2"),
-                 htmlOutput("aboutRsi2")
+                 textOutput("eventDivRSI")
+                 #htmlOutput("aboutRsi2")
                )
              ))
              
