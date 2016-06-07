@@ -15,8 +15,7 @@ trumpdata$date <- as.Date(trumpdata$date)
 
 
 # ----- LOAD EVENTS -----
-eventdir <- "/Users/chagerman/Data/ISIL-related-events"
-#fnames <- c("2013_events.tsv", "2014_events.tsv", "2015_events.tsv", "2016_events.tsv")
+eventdir <- file.path(getwd(), "ISIL-related-events")
 
 df1 <- read.table(file.path(eventdir, "2013_events.tsv"), sep="\t", quote="", header=TRUE)
 df2 <- read.table(file.path(eventdir, "2014_events.tsv"), sep="\t", quote="", header=TRUE)
