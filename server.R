@@ -11,6 +11,7 @@ source("MACDLogic.R")
 source("IQROutlierLogic.R")
 source("RSILogic.R")
 source("SMA.R")
+source("SentimentVolume.R")
 source("aboutTA.R")
 
 
@@ -48,10 +49,22 @@ shinyServer(function(input, output) {
   output$aboutTS <- renderUI({
     div(HTML(ts_def))
   })
-  
 
   
+  # -----------     SENTIMENT VOLUME     --------------------------------------------
+  datasetInputSma <- reactive({
+    switch(input$datasetSma,
+           "Trump" = trumpdata,
+           "ISIL Arabic" = isilar,
+           "ISIL English" = isilen)
+  })
+
+  output$sentimentTsPlot <- renderDygraph({
+    indata <- datasetInputSma()
+    sentimentPlot(indata)
+  })  
   
+
   # -----------     MOVING AVERAGES     --------------------------------------------
   datasetInputSma <- reactive({
     switch(input$datasetSma,

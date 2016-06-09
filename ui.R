@@ -10,7 +10,26 @@ shinyUI(navbarPage("Time Series",
              htmlOutput("aboutTS")
              ),
 
+
+    # -----------     SENTIMENT VOLUME     --------------------------------------------
+    tabPanel("Sentiment Volume",
+             sidebarLayout(
+               sidebarPanel(
+                 selectInput("datasetSma", "Twitter dataset:", 
+                             choices = c("Trump", "ISIL Arabic", "ISIL English"), selected="ISIL English")
+                 #htmlOutput("aboutSentiment1")
+               ),
+               
+               mainPanel(
+                 dygraphOutput("sentimentTsPlot"),
+                 textOutput("eventDivSentiment")
+               )
+             )),
     
+    
+    
+    
+        
     # -----------     MOVING AVERAGES     --------------------------------------------
     tabPanel("Moving Average",
              sidebarLayout(
